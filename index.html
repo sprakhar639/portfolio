@@ -116,7 +116,7 @@ nav ul a.on{background:var(--accent); color:var(--accent-fg)}
   box-shadow: none;
 }
 
-/* Subtle background colour around the portrait */
+/* Subtle background glow around portrait */
 .avatar-wrap::before {
   content: "";
   position: absolute;
@@ -124,8 +124,7 @@ nav ul a.on{background:var(--accent); color:var(--accent-fg)}
   z-index: 0;
   background: radial-gradient(
     ellipse,
-    rgba(157, 235, 208, 0.55) 0%,
-    rgba(157, 235, 208, 0.22) 45%,
+    var(--avatar-glow) 0%,
     transparent 75%
   );
   filter: blur(18px);
