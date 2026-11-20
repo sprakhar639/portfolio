@@ -88,52 +88,60 @@ nav ul a.on{background:var(--accent); color:var(--accent-fg)}
   width: 150px;
   height: 150px;
   margin-bottom: 10px;
-  isolation: isolate;
-
-  /* Fade bottom into hero background */
-  -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
+  overflow: visible;
 }
 
 /* Portrait */
 .avatar {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  border: 0;
+  border: none;
   box-shadow: none;
 
-  /* Slightly reduce brightness in both themes */
-  filter: brightness(0.94);
+  /* Slightly darker and less saturated */
+  filter: brightness(0.90) saturate(0.92);
+
+  /* Fade only the bottom into the hero background */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 78%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 78%,
+    transparent 100%
+  );
 }
 
-/* Subtle glow behind portrait */
+/* Soft glow behind portrait */
 .avatar-wrap::before {
   content: "";
   position: absolute;
   inset: 5px -15px;
-  z-index: 0;
+  z-index: -1;
   background: radial-gradient(
     ellipse,
-    var(--avatar-glow, rgba(157, 235, 208, 0.20)) 0%,
+    var(--avatar-glow) 0%,
     transparent 75%
   );
   filter: blur(18px);
+  pointer-events: none;
 }
 
-/* Very subtle overlay over the portrait */
-.avatar-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: rgba(0, 0, 0, 0.05);
+/* Light theme */
+:root {
+  --avatar-glow: rgba(100, 190, 160, 0.16);
 }
+
+/* Dark theme */
+[data-theme="dark"] {
+  --avatar-glow: rgba(30, 150, 120, 0.08);
+}
+/* REMOVE the previous avatar-wrap::after block */
 .status{display:inline-flex; align-items:center; gap:10px; padding:6px 14px 6px 10px; border-radius:999px; background:var(--glass); border:1px solid var(--line); font:500 12px var(--mono); letter-spacing:.04em}
 .status{background:transparent;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding-left:0}
 .status i{width:8px; height:8px; border-radius:50%; background:var(--pos); animation:ping 2s infinite}
